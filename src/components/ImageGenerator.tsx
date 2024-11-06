@@ -8,6 +8,17 @@ type GenerationOptions = {
   seed?: number;
 };
 
+type ImageSize = 'square_hd' | 'square' | 'portrait_4_3' | 'portrait_16_9' | 'landscape_4_3' | 'landscape_16_9';
+
+const IMAGE_SIZE_LABELS: Record<ImageSize, string> = {
+  square_hd: 'Square HD',
+  square: 'Square',
+  portrait_4_3: 'Portrait (4:3)',
+  portrait_16_9: 'Portrait (16:9)',
+  landscape_4_3: 'Landscape (4:3)',
+  landscape_16_9: 'Landscape (16:9)',
+};
+
 fal.config({
   credentials: import.meta.env.VITE_FAL_KEY,
 });
@@ -82,27 +93,47 @@ export default function ImageGenerator() {
         </button>
 
         {showAdvanced && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-white/50 backdrop-blur-sm rounded-lg border border-gray-200">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Inference Steps</label>
-              <input
-                type="number"
-                value={options.inferenceSteps}
-                onChange={(e) => setOptions({ ...options, inferenceSteps: parseInt(e.target.value) })}
-                className="w-full p-2 rounded border border-gray-200 focus:border-purple-500"
-                min={1}
-                max={100}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Seed (Optional)</label>
-              <input
-                type="number"
-                value={options.seed || ''}
-                onChange={(e) => setOptions({ ...options, seed: e.target.value ? parseInt(e.target.value) : undefined })}
-                className="w-full p-2 rounded border border-gray-200 focus:border-purple-500"
-                placeholder="Random"
-              />
+          <div className="space-y-4 p-4 bg-purple-50/50 rounded-lg">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div>
+                <label htmlFor="imageSize" className="block text-sm font-medium text-gray-700 mb-1">
+                  Image Size
+                </label>
+                <select
+                  id="imageSize"
+                  value={options.imageSize}
+                  onChange={(e) => setOptions({ ...options, imageSize: e.target.value as ImageSize })}
+                  className="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                >
+                  {Object.entries(IMAGE_SIZE_LABELS).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Inference Steps</label>
+                <input
+                  type="number"
+                  value={options.inferenceSteps}
+                  onChange={(e) => setOptions({ ...options, inferenceSteps: parseInt(e.target.value) })}
+                  className="w-full p-2 rounded border border-gray-200 focus:border-purple-500"
+                  min={1}
+                  max={100}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Seed (Optional)</label>
+                <input
+                  type="number"
+                  value={options.seed || ''}
+                  onChange={(e) => setOptions({ ...options, seed: e.target.value ? parseInt(e.target.value) : undefined })}
+                  className="w-full p-2 rounded border border-gray-200 focus:border-purple-500"
+                  placeholder="Random"
+                />
+              </div>
             </div>
           </div>
         )}
