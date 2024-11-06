@@ -4,7 +4,7 @@ import ImageGenerator from './components/ImageGenerator';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex flex-col">
       <header className="border-b border-purple-100 bg-white/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -14,21 +14,11 @@ function App() {
                 CentAI
               </span>
             </div>
-            <nav>
-              <a
-                href="https://fal.ai/docs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-purple-600 transition-colors"
-              >
-                API Docs
-              </a>
-            </nav>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Create Amazing Images with AI
@@ -42,10 +32,8 @@ function App() {
         <ImageGenerator />
       </main>
 
-      <footer className="border-t border-purple-100 py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600">
-          <p>Powered by FAL.ai Stable Diffusion</p>
-        </div>
+      <footer className="mt-auto py-6 text-center text-sm text-gray-600 border-t border-purple-100 bg-white/50">
+        Powered by Melloy Apps and FAL.ai
       </footer>
     </div>
   );
